@@ -35,7 +35,7 @@ export default function Nav() {
               onClick={() => router.push('/dashboard')}
             /> :
             <IoImagesOutline
-              className="cursor-pointer size-7"
+              className="cursor-pointer size-7 text-white/50"
               onClick={() => router.push('/dashboard')}
             />
           }
@@ -48,7 +48,7 @@ export default function Nav() {
               onClick={() => router.push('/cart')}
             /> : 
             <IoCartOutline
-              className="cursor-pointer size-9"
+              className="cursor-pointer size-9 text-white/50"
               onClick={() => router.push('/cart')}
             />
           }
