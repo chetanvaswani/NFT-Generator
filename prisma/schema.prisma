@@ -6,6 +6,7 @@
 
 generator client {
   provider = "prisma-client-js"
+  generator = "./node_modules/@prisma/client"
 }
 
 datasource db {
@@ -13,16 +14,118 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model LayerImage {
-  id           Int      @id @default(autoincrement())
-  collection   String
-  artist       String?
-  categoryName String   @map("category_name")
-  imageUrl     String   @map("image_url")
-  traitName    String   @map("trait_name")
-  createdAt    DateTime @default(now()) @map("created_at")
+enum UserType {
+  ARTIST
+  CREATOR
+  CONSUMER
+}
 
-  @@index([collection], name: "idx_layer_images_collection")
-  @@index([categoryName], name: "idx_layer_images_category_name")
+model User {
+  id        Int      @id @default(autoincrement())
+  type      UserType
+  name      String
+  username  String   @unique
+  mobNumber String?  @map("mob_number")
+  email     String?  @unique
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  artist    Artist?  @relation("UserToArtist")
+  creator   Creator? @relation("UserToCreator")
+  consumer  Consumer? @relation("UserToConsumer")
+
+  @@index([username], name: "idx_user_username")
+  @@index([email], name: "idx_user_email")
+  @@map("users")
+}
+
+model Creator {
+  id     Int    @id @default(autoincrement())
+  userId Int    @unique @map("user_id")
+  user   User   @relation("UserToCreator", fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("creators")
+}
+
+model Consumer {
+  id     Int    @id @default(autoincrement())
+  userId Int    @unique @map("user_id")
+  user   User   @relation("UserToConsumer", fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("consumers")
+}
+
+model Artist {
+  id     Int    @id @default(autoincrement())
+  userId Int    @unique @map("user_id")
+  user   User   @relation("UserToArtist", fields: [userId], references: [id], onDelete: Cascade)
+
+  collections Collection[]
+  Layers Layers[]
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("artists")
+}
+
+model Collection {
+  id          Int      @id @default(autoincrement())
+  name        String   @unique
+  description String?
+  coverImage  String   @map("cover_image")
+  artistId    Int      @map("artist_id")
+  artist      Artist   @relation(fields: [artistId], references: [id], onDelete: Cascade)
+
+  categories  Category[]
+  Layers Layers[]
+
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  @@index([artistId], name: "idx_collection_artist_id")
+  @@map("collections")
+}
+
+model Category {
+  id           Int      @id @default(autoincrement())
+  name         String
+  collectionId Int      @map("collection_id")
+  collection   Collection @relation(fields: [collectionId], references: [id], onDelete: Cascade)
+
+  layers       Layers[]
+
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @updatedAt @map("updated_at")
+
+  @@unique([name, collectionId], name: "uniq_category_name_per_collection")
+  @@index([collectionId], name: "idx_category_collection_id")
+  @@map("categories")
+}
+
+model Layers {
+  id           Int          @id @default(autoincrement())
+  imageUrl     String       @map("image_url")
+  traitName    String       @map("trait_name")
+  createdAt    DateTime     @default(now()) @map("created_at")
+
+  artistId     Int?         @map("artist_id")
+  artist       Artist?      @relation(fields: [artistId], references: [id], onDelete: Cascade)
+
+  collectionId Int?         @map("collection_id")
+  collection   Collection?  @relation(fields: [collectionId], references: [id], onDelete: Cascade)
+
+  categoryId   Int?          @map("category_id")
+  category     Category?     @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+
+  @@index([artistId], name: "idx_layer_images_artist_id")
+  @@index([collectionId], name: "idx_layer_images_collection_id")
+  @@index([categoryId], name: "idx_layer_images_category_id")
   @@map("layer_images")
 }
