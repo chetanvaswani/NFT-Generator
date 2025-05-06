@@ -1,4 +1,4 @@
-// import { NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 // import cloudinary from 'cloudinary';
 
 // cloudinary.v2.config({
@@ -8,7 +8,7 @@
 //   secure: true
 // });
 
-// export async function GET() {
+export async function GET() {
 //   const imagesByFolder: any = {};
 
 //   let nextCursor = null;
@@ -50,4 +50,5 @@
 //   }
 
 //   return NextResponse.json({ imagesByFolder });
-// }
+    return NextResponse.json({ message: 'Data uploaded successfully'}, { status: 200 });
+}

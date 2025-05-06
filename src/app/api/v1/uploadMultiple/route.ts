@@ -1,7 +1,7 @@
-// import { NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 // import prisma from "../../../../db"; 
 
-// export async function POST(request: Request) {
+export async function POST() {
 //   try {
 //     console.log('DATABASE_URL:', process.env.DATABASE_URL ? 'Set' : 'Not set');
 
@@ -46,12 +46,13 @@
 //         uploadData.push(data);
 //       }
 //     }
+//  return NextResponse.json({ message: 'Data uploaded successfully', data: uploadData }, { status: 200 });
 
-//     return NextResponse.json({ message: 'Data uploaded successfully', data: uploadData }, { status: 200 });
+    return NextResponse.json({ message: 'Data uploaded successfully'}, { status: 200 });
 //   } catch (error: any) {
 //     console.error('Error processing request:', error);
 //     return NextResponse.json({ error: 'Internal server error', details: error.message }, { status: 500 });
 //   } finally {
 //     await prisma.$disconnect();
 //   }
-// }
+}

@@ -27,9 +27,9 @@ export async function POST(request: Request) {
     console.log('Created collection:', collection);
 
     return NextResponse.json({ message: 'Collection created successfully', collection }, { status: 201 });
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error creating collection:', error);
-    return NextResponse.json({ error: 'Internal server error', details: error.message }, { status: 500 });
+    return NextResponse.json({ error: 'Internal server error', details: error?.message }, { status: 500 });
   } finally {
     await prisma.$disconnect();
   }

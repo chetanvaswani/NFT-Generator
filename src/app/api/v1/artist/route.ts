@@ -39,9 +39,9 @@ export async function POST(request: Request) {
     console.log('Created artist user:', user);
 
     return NextResponse.json({ message: 'Artist created successfully', user }, { status: 201 });
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error creating artist:', error);
-    return NextResponse.json({ error: 'Internal server error', details: error.message }, { status: 500 });
+    return NextResponse.json({ error: 'Internal server error', details: error?.message }, { status: 500 });
   } finally {
     await prisma.$disconnect();
   }

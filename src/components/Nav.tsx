@@ -1,5 +1,4 @@
 'use client';
-import { CgImage } from 'react-icons/cg';
 import { IoImagesOutline } from "react-icons/io5";
 import { IoImages } from "react-icons/io5";
 import { useRouter } from 'next/navigation';
@@ -10,7 +9,6 @@ import { IoCart } from "react-icons/io5";
 export default function Nav() {
   const router = useRouter();
   const pathname = usePathname();
-  console.log(pathname)
 
   return (
     <div className="mx-5 px-5 h-[70px] border-b-2 border-[#181818] flex justify-between items-center gap-2.5 animate-slideDown opacity-0">

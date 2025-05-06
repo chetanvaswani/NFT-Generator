@@ -27,6 +27,6 @@ export async function GET(request: Request) {
       return NextResponse.json({ message: 'Categories fetched successfully', data: categories }, { status: 200 });
     } catch (error: any) {
       console.error('Error fetching categories:', error);
-      return NextResponse.json({ error: 'Internal server error', details: error.message }, { status: 500 });
+      return NextResponse.json({ error: 'Internal server error', details: error?.message }, { status: 500 });
     }
 }

@@ -24,9 +24,9 @@ export async function POST(request: Request) {
     console.log('Created category:', category);
 
     return NextResponse.json({ message: 'Category created successfully', category }, { status: 201 });
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error creating category:', error);
-    return NextResponse.json({ error: 'Internal server error', details: error.message }, { status: 500 });
+    return NextResponse.json({ error: 'Internal server error', details: error?.message }, { status: 500 });
   } finally {
     await prisma.$disconnect();
   }
