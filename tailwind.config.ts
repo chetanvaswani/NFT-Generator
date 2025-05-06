@@ -23,10 +23,18 @@ const config: Config = {
           '0%': { transform: 'translateY(-100%)', opacity: '0' },
           '100%': { transform: 'translateY(0)', opacity: '1' },
         },
+        slideUp: {
+          '0%': { transform: 'translateY(100%)', opacity: '0' },
+          '100%': { transform: 'translateY(0)', opacity: '1' },
+        },
         fadeIn: {
           '0%': { backgroundColor: 'white', opacity: '0' },
           "50%": {opacity: '0'},
           '100%': { backgroundColor: 'black', opacity: '1' },
+        },
+        fadeInContainer: {
+          '0%': { opacity: '0' },
+          '100%': { opacity: '1' },
         },
         fadeInDisplay: {
           '0%': { backgroundColor: 'white', opacity: '0' },
@@ -40,7 +48,10 @@ const config: Config = {
         typing: {
           "0%": { width: "0", opacity: "0"},
           "10%": {opacity: "10%"},
-          "100%": {width: "100%", "border-right": "none"}
+          "100%": {width: "100%", "border-right": "none", opacity: "100%"}
+        },
+        blink: {
+          "50%": { "border-color": "transparent"}
         }
       },
       animation: {
@@ -49,7 +60,9 @@ const config: Config = {
         fadeIn: 'fadeIn 1.3s ease forwards',
         fadeInDisplay: 'fadeInDisplay 2s ease forwards',
         slideInLeft: 'slideInLeft 0.7s ease forwards 0.7s',
-        typing: 'typing 2s steps(40, end) forwards, blink 0.75s step-end infinite'
+        typing: 'typing 2s steps(40, end) forwards, blink 0.75s step-end infinite',
+        slideUp: 'slideUp 0.8s ease forwards 0.5s',
+        fadeInContainer: 'fadeInContainer 1s ease forwards',
       },
     },
   },
