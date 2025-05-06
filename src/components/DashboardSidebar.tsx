@@ -1,6 +1,5 @@
 "use client"
 import { useState, useEffect } from 'react';
-import {categoryInterface} from "@/schemas/category"
 import axios from 'axios';
 import {useRecoilState} from "recoil";
 import {categoriesAtom} from "@/store/atoms/categories";
@@ -31,15 +30,14 @@ export default function DashboardSidebar({ selectedCategory, setSelectedCategory
             setCategories(res.data.data)
             console.log("fetch categories successful")
             setSelectedCategory(res.data.data[0])
-            setTimeout(() => {
-              setLoading(false)
-            }, 750)
+            setLoading(false)
           }
         }).catch((err) => {
           console.log(err)
           setLoading(false)
         }) 
       } else {
+        setSelectedCategory(categories[0])
         setLoading(false)
       }
     }, [])

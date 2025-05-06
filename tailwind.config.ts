@@ -37,6 +37,11 @@ const config: Config = {
           '0%': { transform: 'translateX(-100%)', opacity: '0' },
           '100%': { transform: 'translateX(0)', opacity: '1' },
         },
+        typing: {
+          "0%": { width: "0", opacity: "0"},
+          "10%": {opacity: "10%"},
+          "100%": {width: "100%", "border-right": "none"}
+        }
       },
       animation: {
         fadeOut: 'fadeOut 2s forwards',
@@ -44,6 +49,7 @@ const config: Config = {
         fadeIn: 'fadeIn 1.3s ease forwards',
         fadeInDisplay: 'fadeInDisplay 2s ease forwards',
         slideInLeft: 'slideInLeft 0.7s ease forwards 0.7s',
+        typing: 'typing 2s steps(40, end) forwards, blink 0.75s step-end infinite'
       },
     },
   },

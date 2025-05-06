@@ -1,7 +1,7 @@
 'use client';
 import { useRouter } from 'next/navigation';
-import {useRef } from 'react';
-import ChequeBackground from "@/components/ChequeBackground"
+import { useRef, useEffect } from 'react';
+import ChequeBackground from "@/components/ChequeBackground";
 
 export default function WelcomePage() {
   const router = useRouter();
@@ -28,14 +28,18 @@ export default function WelcomePage() {
         </nav>
         <main className="fixed top-1/2 w-full flex flex-col items-center gap-8 transform -translate-y-1/2">
           <div className="flex flex-col items-center gap-1 text-center">
-            <div className="text-[55px] font-bold leading-tight">
-              Turn Ideas into NFTs,
+            <div className="text-[55px] font-bold leading-none">
+              <span className="inline-block overflow-hidden whitespace-nowrap border-r-[2px] border-white animate-typing">Turn Ideas into NFTs,</span>
             </div>
-            <div className="text-[55px] font-bold leading-tight">
-              Launch in Minutes with Simple Clicks!
+            <div className="text-[55px] font-bold leading-none">
+              <span className="inline-block overflow-hidden whitespace-nowrap border-r-[2px] border-white  animate-typing" style={{ animationDelay: '1.5s' } as React.CSSProperties}>
+                Launch in Minutes with Simple Clicks!
+              </span>
             </div>
             <div className="text-2xl text-white/65 mt-2">
-              Effortless NFT creation for creators and brands, no coding required.
+              <span className="inline-block overflow-hidden whitespace-nowrap border-r-[2px] border-white  animate-typing" style={{ animationDelay: '3.5s' } as React.CSSProperties}>
+                Effortless NFT creation for creators and brands, no coding required.
+              </span>
             </div>
           </div>
           <div>
@@ -53,6 +57,12 @@ export default function WelcomePage() {
           </div>
         </footer>
       </div>
+
+      <style jsx>{`
+        @keyframes blink {
+          50% { border-color: transparent; }
+        }
+      `}</style>
     </div>
   );
 }
