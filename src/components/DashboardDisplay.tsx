@@ -53,7 +53,7 @@ export default function DashboardDisplay({selectedCategory}: any) {
 
   return (
     <div className="flex flex-wrap justify-evenly gap-8 p-12 overflow-y-auto h-[calc(100vh-70px)] w-[calc(100%-300px)] max-[1000px]:w-[calc(100%-100px)]">
-      {layer[selectedCategory.name]?.map((layer: any) => {
+      { selectedCategory && layer[selectedCategory.name]?.map((layer: any) => {
         return (
           <div
             key={layer.id}
