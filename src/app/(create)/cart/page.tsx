@@ -15,25 +15,25 @@ export default function Cart() {
 
 
   // console.log(Object.keys(selectedLayers))
-  useEffect(() => {
-    if (Object.keys(selectedLayers).length > 0){
-      Object.keys(selectedLayers).map((key) => {
-       const rarity = parseInt((100/selectedLayers[key].length).toFixed(3))
-       const layersByCategory = selectedLayers[key]
-       const layersWithRarity: any = []
-       layersByCategory.forEach((layer) => {
-         layersWithRarity.push({
-           ...layer,
-           rarity
-         })
-       })
-       setSelectedLayers((prev) => ({
-         ...prev,
-         [key]: layersWithRarity
-       }))
-     })
-    }
-  }, [])
+  // useEffect(() => {
+  //   if (Object.keys(selectedLayers).length > 0){
+  //     Object.keys(selectedLayers).map((key) => {
+  //      const rarity = parseInt((100/selectedLayers[key].length).toFixed(3))
+  //      const layersByCategory = selectedLayers[key]
+  //      const layersWithRarity: any = []
+  //      layersByCategory.forEach((layer) => {
+  //        layersWithRarity.push({
+  //          ...layer,
+  //          rarity
+  //        })
+  //      })
+  //      setSelectedLayers((prev) => ({
+  //        ...prev,
+  //        [key]: layersWithRarity
+  //      }))
+  //    })
+  //   }
+  // }, [])
 
 
   return (
@@ -70,8 +70,8 @@ export default function Cart() {
                                     <div>{rarity}%</div>
                                     <button className='text-2xl font-bold'>
                                       <FaPlus className='size-4' onClick={() => {
-                                        rarity += 10
-                                        console.log(rarity)
+                                        // rarity += 10
+                                        // console.log(rarity)
                                       }} />
                                     </button>
                                   </div>
