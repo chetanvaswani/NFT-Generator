@@ -2,7 +2,7 @@ import { atom } from "recoil";
 
 interface layersInterface {
     [categoryName: string]: any[];
-  }
+}
 
 export const layersAtom = atom<layersInterface>({
     key: "layersAtom",

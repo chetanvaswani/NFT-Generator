@@ -10,21 +10,22 @@ export default function DashboardDisplay({selectedCategory}: any) {
 
   useEffect(() => {
     if (selectedCategory !== null && !(layer[selectedCategory.name])){
+      // console.log("layers fetch start")
       axios.get(`/api/v1/layers?categoryId=${selectedCategory?.id}`).then((res) => {
-        console.log(res.data)
+        // console.log(res.data)
         setLayers((prevLayers) => ({
             ...prevLayers,
             [selectedCategory.name]: res.data.data,
           }));
         setLoading(false)
-        console.log({
-            [selectedCategory.name]: res.data.data,
-        })
+        // console.log({
+        //     [selectedCategory.name]: res.data.data,
+        // })
       }).catch((err) => {
         console.log(err)
         setLoading(false)
       })
-    } else {
+    } else if(selectedCategory !== null) {
         setLoading(false)
     }
   }, [selectedCategory])
@@ -60,7 +61,7 @@ export default function DashboardDisplay({selectedCategory}: any) {
             id={layer.traitName}
             onClick={() => {
                 if (selectedLayers[selectedCategory.name] && selectedLayers[selectedCategory.name].length > 0){
-                    console.log(selectedLayers[selectedCategory.name])
+                    // console.log(selectedLayers[selectedCategory.name])
                     let updatedLayerArray= selectedLayers[selectedCategory.name]
                     if (updatedLayerArray.includes(layer)){
                         updatedLayerArray = updatedLayerArray.filter((l: any) => l !== layer)
@@ -74,7 +75,7 @@ export default function DashboardDisplay({selectedCategory}: any) {
                             [selectedCategory.name]: [...updatedLayerArray, layer]
                         }))
                     }
-                    console.log(selectedLayers[selectedCategory.name])
+                    // console.log(selectedLayers[selectedCategory.name])
                 } else {
                     setSelectedLayers((prev) => ({
                         ...prev,

@@ -23,12 +23,12 @@ export default function DashboardSidebar({ selectedCategory, setSelectedCategory
     };
   
     useEffect(() => {
-      console.log(categories)
+      // console.log(categories)
       if (categories.length < 1){
         axios.get('/api/v1/categories?collectionId=1').then((res) => {
           if(res.status === 200){
             setCategories(res.data.data)
-            console.log("fetch categories successful")
+            // console.log("fetch categories successful")
             setSelectedCategory(res.data.data[0])
             setLoading(false)
           }

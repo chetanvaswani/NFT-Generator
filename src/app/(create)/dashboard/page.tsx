@@ -1,8 +1,7 @@
 "use client"
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import DashboardSidebar from "@/components/DashboardSidebar";
 import {categoryInterface} from "@/schemas/category";
-import axios from 'axios';
 import DashboardDisplay from "@/components/DashboardDisplay"
 
 export default function Dashboard() {
