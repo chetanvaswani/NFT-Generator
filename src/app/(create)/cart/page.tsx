@@ -1,17 +1,16 @@
 
 "use client"
 // import { useRouter } from 'next/navigation'
-import {useRecoilState} from "recoil";
+import {useRecoilValue} from "recoil";
 import { selectedLayersAtom } from '@/store/atoms/layers';
 import { FaPlus } from "react-icons/fa6";
 import { GoDash } from "react-icons/go";
 import CartForm from '@/components/CartForm';
-import { useEffect } from 'react';
 
 
 export default function Cart() {
   // const router = useRouter()
-  const [selectedLayers, setSelectedLayers] = useRecoilState(selectedLayersAtom);
+  const selectedLayers = useRecoilValue(selectedLayersAtom);
 
 
   // console.log(Object.keys(selectedLayers))
@@ -52,7 +51,7 @@ export default function Cart() {
                       <div className="flex flex-wrap gap-x-4 gap-y-10 p-5">
                         {
                           selectedLayers[key].map((layer) => {
-                            let rarity = parseInt((100/selectedLayers[key].length).toFixed(0))
+                            const rarity = parseInt((100/selectedLayers[key].length).toFixed(0))
                             console.log(layer)
                             return (
                               <div key={layer.id} className="relative w-[200px] flex flex-col items-center gap-1">
