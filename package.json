@@ -14,7 +14,6 @@
     "@types/react": "^18.3.21",
     "axios": "^1.9.0",
     "cloudinary": "^2.6.0",
-    "eslint": "^8",
     "fs": "^0.0.1-security",
     "next": "14.2.26",
     "next-cloudinary": "^6.16.0",
@@ -27,7 +26,8 @@
   },
   "devDependencies": {
     "@types/react-dom": "^18",
-    "eslint-config-next": "^14.2.26",
+    "eslint": "^8.57.1",
+    "eslint-config-next": "^14.2.28",
     "prisma": "^6.7.0",
     "typescript": "^5"
   }
