@@ -24,33 +24,41 @@ export default function Nav() {
         </div>
       </div>
       <div className="flex gap-5">
-        <div className='flex items-center gap-2'>
-          {/* <div className='text-xl'>Gallery</div> */}
-          {
-            pathname === "/dashboard" ? 
-            <IoImages
-              className="cursor-pointer size-7"
-              onClick={() => router.push('/dashboard')}
-            /> :
-            <IoImagesOutline
-              className="cursor-pointer size-7 text-white/50"
-              onClick={() => router.push('/dashboard')}
-            />
-          }
-        </div>
-        <div className='flex'>
-          {
-            pathname === "/cart" ? 
-            <IoCart
-              className="cursor-pointer size-9"
-              onClick={() => router.push('/cart')}
-            /> : 
-            <IoCartOutline
-              className="cursor-pointer size-9 text-white/50"
-              onClick={() => router.push('/cart')}
-            />
-          }
-        </div>
+        {
+          pathname === "/mint" ?
+          <div>
+
+          </div>
+          :
+          <>
+            <div className='flex items-center gap-2'>
+              {
+                pathname === "/dashboard" ? 
+                <IoImages
+                  className="cursor-pointer size-7"
+                  onClick={() => router.push('/dashboard')}
+                /> :
+                <IoImagesOutline
+                  className="cursor-pointer size-7 text-white/50"
+                  onClick={() => router.push('/dashboard')}
+                />
+              }
+            </div>
+            <div className='flex'>
+              {
+                pathname === "/cart" ? 
+                <IoCart
+                  className="cursor-pointer size-9"
+                  onClick={() => router.push('/cart')}
+                /> : 
+                <IoCartOutline
+                  className="cursor-pointer size-9 text-white/50"
+                  onClick={() => router.push('/cart')}
+                />
+              }
+            </div>
+          </>
+        }
       </div>
     </div>
   );

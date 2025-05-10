@@ -1,16 +1,20 @@
 "use client"
-import { useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { selectedLayersAtom } from '@/store/atoms/layers';
+import { nftsAtom } from "@/store/atoms/nfts";
 import CartForm from '@/components/CartForm';
 import { DndProvider} from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { useState, useCallback } from 'react';
+import { useRouter } from 'next/navigation';
 import DraggableLayer from "@/components/DraggableLayer";
 
 export default function Cart() {
+  const router = useRouter();
   const selectedLayers = useRecoilValue(selectedLayersAtom);
   const [layerOrder, setLayerOrder] = useState(Object.keys(selectedLayers).filter(key => selectedLayers[key].length > 0));
   const [loading, setLoading] = useState(false);
+  const [nfts, setNfts] = useRecoilState(nftsAtom)
 
   const moveLayer = (dragIndex: any, hoverIndex: any) => {
     const draggedLayer = layerOrder[dragIndex];
@@ -70,8 +74,11 @@ export default function Cart() {
       }
 
       const data = await response.json();
+      setNfts(data.data)
       setLoading(false)
+      router.push('/mint')
       console.log("Collection generated:", data);
+      console.log(nfts)
     } catch (error) {
       console.error("Error generating collection:", error);
     }
