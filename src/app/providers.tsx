@@ -9,9 +9,9 @@ import { clusterApiUrl } from '@solana/web3.js';
 import { useMemo } from 'react';
 
 export const Providers = ({ children }: { children: ReactNode }) => {
-  const network = 'devnet'; // Use 'mainnet-beta' for production
+  const network = 'devnet'; 
   const endpoint = useMemo(() => clusterApiUrl(network), [network]);
-  const wallets = useMemo(() => [new PhantomWalletAdapter(), new AlphaWalletAdapter()], []);
+  const wallets = useMemo(() => [new PhantomWalletAdapter()], []);
 
   return (
       <RecoilRoot>

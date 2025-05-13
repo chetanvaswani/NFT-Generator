@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { usePathname } from 'next/navigation';
 import { IoCartOutline } from "react-icons/io5";
 import { IoCart } from "react-icons/io5";
+import ImportWallet from "./ImportWallet";
 
 export default function Nav() {
   const router = useRouter();
@@ -26,9 +27,7 @@ export default function Nav() {
       <div className="flex gap-5">
         {
           pathname === "/mint" ?
-          <div>
-
-          </div>
+          <ImportWallet />
           :
           <>
             <div className='flex items-center gap-2'>

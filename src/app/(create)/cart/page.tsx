@@ -12,7 +12,13 @@ import DraggableLayer from "@/components/DraggableLayer";
 export default function Cart() {
   const router = useRouter();
   const selectedLayers = useRecoilValue(selectedLayersAtom);
-  const [layerOrder, setLayerOrder] = useState(Object.keys(selectedLayers).filter(key => selectedLayers[key].length > 0));
+  const [layerOrder, setLayerOrder] = useState(() => {
+    const allKeys = Object.keys(selectedLayers).filter(key => selectedLayers[key].length > 0);
+    const priorityLayers = ["background", "fur", "clothes", "mouth", "eyes", "cap"];
+    const orderedKeys = priorityLayers.filter(key => allKeys.includes(key));
+    const remainingKeys = allKeys.filter(key => !priorityLayers.includes(key));
+    return [...orderedKeys, ...remainingKeys];
+  });
   const [loading, setLoading] = useState(false);
   const [nfts, setNfts] = useRecoilState(nftsAtom)
 
