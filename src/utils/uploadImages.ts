@@ -6,10 +6,10 @@ cloudinary.v2.config({
     api_secret: process.env.CLOUDINARY_API_SECRET,
   });
 
-export async function uploadToCloudinary(imageBuffer: Buffer, folder: string, index: number): Promise<string> {
+export async function uploadToCloudinary(imageBuffer: Buffer, folder: string, index: number, symbol: string): Promise<string> {
     return new Promise((resolve, reject) => {
       cloudinary.v2.uploader.upload_stream(
-        { folder, public_id: `nft_${index}`, resource_type: 'image' },
+        { folder, public_id: `${symbol}${index}`, resource_type: 'image' },
         (error: any, result: any) => {
           if (error) reject(error);
           else resolve(result.secure_url);

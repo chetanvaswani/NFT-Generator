@@ -25,7 +25,7 @@ export async function POST(req: NextRequest) {
     const nfts = await Promise.all(
       dnAs.map(async (dna: string, index: number) => {
         const imageBuffer: Buffer = await generateImage(dna, layers, layerOrder, width, height);
-        const imageUrl: string = await uploadToCloudinary(imageBuffer, `${name}_${symbol}`, index);
+        const imageUrl: string = await uploadToCloudinary(imageBuffer, `nfts/${name}_${symbol}`, index, symbol);
         const metadata: any = generateMetadata(dna, index, name, description, symbol, imageUrl, layers, layerOrder);
         return { metadata, imageUrl };
       })
