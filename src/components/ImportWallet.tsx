@@ -9,7 +9,9 @@ export default function ImportWallet(){
             <div className='font-semibold'>
                 Connect to your solana wallet to mint the NFT(s)
             </div>
-            <WalletMultiButton />
+            <WalletMultiButton style={{
+                backgroundColor: "#181818",
+            }} />
         </div>
     )
 }
