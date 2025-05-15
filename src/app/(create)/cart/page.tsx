@@ -80,7 +80,7 @@ export default function Cart() {
       }
 
       const data = await response.json();
-      setNfts(data.data)
+      setNfts(data.data.nfts)
       setLoading(false)
       router.push('/mint')
       console.log("Collection generated:", data);
