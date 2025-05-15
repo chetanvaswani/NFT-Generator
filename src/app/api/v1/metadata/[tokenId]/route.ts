@@ -57,7 +57,7 @@ export async function GET(
         name: nft.collection.name,
         symbol: nft.collection.symbol,
       },
-      external_url: `https://yourdomain.com/nft/${tokenId}`,
+      external_url: `https://nftgeneratorweb.netlify.app/api/v1/metadata/${tokenId}`,
       seller_fee_basis_points: 500,
     };
 
