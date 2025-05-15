@@ -129,3 +129,44 @@ model Layers {
   @@index([categoryId], name: "idx_layer_images_category_id")
   @@map("layer_images")
 }
+
+model NftCollection {
+  id            Int       @id @default(autoincrement())
+  name          String
+  symbol        String     @unique
+  description   String?
+  coverImageUrl String?     @map("cover_image_url")
+  creatorName   String
+  blockchain    String
+  isMinted      Boolean    @default(false)
+
+  nfts          Nft[]
+
+  createdAt     DateTime   @default(now()) @map("created_at")
+  updatedAt     DateTime   @updatedAt @map("updated_at")
+
+  @@map("nft_collections")
+}
+
+model Nft {
+  id             Int       @id @default(autoincrement())
+  tokenId        String     @unique @map("token_id") 
+  name           String
+  description    String?
+  imageUrl       String     @map("image_url")
+  dna            String?     @unique
+  metadata       Json       
+  collectionId   Int        @map("collection_id")
+  collection     NftCollection @relation(fields: [collectionId], references: [id], onDelete: Cascade)
+
+  ownerWallet    String?     @map("owner_wallet")
+  isMinted       Boolean     @default(false)
+
+  createdAt      DateTime    @default(now()) @map("created_at")
+  updatedAt      DateTime    @updatedAt @map("updated_at")
+
+  @@index([collectionId], name: "idx_nft_collection_id")
+  @@index([tokenId], name: "idx_nft_token_id")
+  @@index([ownerWallet], name: "idx_nft_owner_wallet")
+  @@map("nfts")
+}
