@@ -3,6 +3,7 @@ import React from "react"
 import { useRecoilValue } from "recoil"
 import { nftsAtom } from "@/store/atoms/nfts"
 import { IoInformationCircle } from "react-icons/io5";
+import MintBtn from "@/components/MintButton";
 // import { toTitleCase } from "@/utils/toTitleCase";
 
 export default function Mint(){
@@ -10,6 +11,7 @@ export default function Mint(){
 
     return (
         <div className="p-12 flex flex-col gap-10 h-[calc(100vh-70px)] overflow-y-auto">
+            <MintBtn nfts={nfts} collectionId={0} />
             <div className="flex flex-wrap justify-evenly gap-8 w-full">
                 {
                     nfts.length > 0 && nfts.map((nft) => {
