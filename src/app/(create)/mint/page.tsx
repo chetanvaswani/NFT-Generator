@@ -11,7 +11,7 @@ export default function Mint(){
 
     return (
         <div className="p-12 flex flex-col gap-10 h-[calc(100vh-70px)] overflow-y-auto">
-            <MintBtn nfts={nfts} collectionId={0} />
+            <MintBtn nfts={nfts} />
             <div className="flex flex-wrap justify-evenly gap-8 w-full">
                 {
                     nfts.length > 0 && nfts.map((nft) => {

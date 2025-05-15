@@ -14,10 +14,9 @@ interface NFTData {
 
 interface MintBtnProps {
   nfts: NFTData[];
-  collectionId: number;
 }
 
-const MintBtn: React.FC<MintBtnProps> = ({ nfts, collectionId }) => {
+export default function MintBtn({ nfts }: MintBtnProps){
   const wallet = useWallet();
   const { connection } = useConnection();
   const [isMinting, setIsMinting] = useState(false);
@@ -94,5 +93,3 @@ const MintBtn: React.FC<MintBtnProps> = ({ nfts, collectionId }) => {
     </div>
   );
 };
-
-export default MintBtn;

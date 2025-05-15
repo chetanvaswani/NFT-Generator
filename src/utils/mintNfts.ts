@@ -1,6 +1,6 @@
 import { Keypair, SystemProgram, Transaction } from "@solana/web3.js";
-import { useConnection, useWallet, WalletContextState } from '@solana/wallet-adapter-react';
-import { MINT_SIZE, TOKEN_2022_PROGRAM_ID, createMintToInstruction, createAssociatedTokenAccountInstruction, getMintLen, createInitializeMetadataPointerInstruction, createInitializeMintInstruction, TYPE_SIZE, LENGTH_SIZE, ExtensionType, mintTo, getOrCreateAssociatedTokenAccount, getAssociatedTokenAddressSync } from "@solana/spl-token"
+import { WalletContextState } from '@solana/wallet-adapter-react';
+import { TOKEN_2022_PROGRAM_ID, createMintToInstruction, createAssociatedTokenAccountInstruction, getMintLen, createInitializeMetadataPointerInstruction, createInitializeMintInstruction, TYPE_SIZE, LENGTH_SIZE, ExtensionType, getAssociatedTokenAddressSync } from "@solana/spl-token"
 import { createInitializeInstruction, pack } from '@solana/spl-token-metadata';
   
   interface NFTData {
@@ -52,7 +52,7 @@ import { createInitializeInstruction, pack } from '@solana/spl-token-metadata';
       ),
       createInitializeMintInstruction(
         mintKeypair.publicKey,
-        0, // 0 decimals for NFTs
+        0,
         wallet.publicKey,
         null,
         TOKEN_2022_PROGRAM_ID
@@ -78,7 +78,7 @@ import { createInitializeInstruction, pack } from '@solana/spl-token-metadata';
         mintKeypair.publicKey,
         getAssociatedTokenAddressSync(mintKeypair.publicKey, wallet.publicKey, false, TOKEN_2022_PROGRAM_ID),
         wallet.publicKey,
-        1, // Mint 1 token for NFT
+        1, // 1 token for NFT
         [],
         TOKEN_2022_PROGRAM_ID
       )
