@@ -1,27 +1,24 @@
 "use client"
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useWallet, useConnection } from "@solana/wallet-adapter-react";
 import { LAMPORTS_PER_SOL } from "@solana/web3.js";
 import mintNFT from "@/utils/mintNfts";
+import axios from "axios";
 
-interface NFTData {
-  metadata: {
-    name: string;
-    symbol: string;
-    description: string;
-  };
-}
-
-interface MintBtnProps {
-  nfts: NFTData[];
-}
-
-export default function MintBtn({ nfts }: MintBtnProps){
+export default function MintBtn({ nfts }: any){
   const wallet = useWallet();
   const { connection } = useConnection();
   const [isMinting, setIsMinting] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (error !== null){
+        setTimeout(() => {
+            setError(null)
+        }, 2000)
+    }
+  }, [error])
 
   const handleMint = async () => {
     if (!wallet || !wallet.publicKey ) {
@@ -45,7 +42,7 @@ export default function MintBtn({ nfts }: MintBtnProps){
       }
 
       // ƒpr each NFT
-      const mintedNFTs = [];
+      const mintedNFTs: any[] = [];
       for (const nft of nfts) {
         const mintAddress = await mintNFT(nft, wallet, connection);
         mintedNFTs.push({
@@ -55,22 +52,22 @@ export default function MintBtn({ nfts }: MintBtnProps){
         });
       }
 
-      // Update token IDs in the database
-    //   const response = await fetch('/api/v1/update-token-ids', {
-    //     method: 'POST',
-    //     headers: { 'Content-Type': 'application/json' },
-    //     body: JSON.stringify({
-    //       collectionId,
-    //       nfts: mintedNFTs,
-    //     }),
-    //   });
+      console.log(mintedNFTs)
+      console.log(nfts[0].metadata.collection.name, "collection name")
 
-    //   const result = await response.json();
-    //   if (result.status !== "success") {
-    //     throw new Error("Failed to update token IDs in the database");
-    //   }
+      await axios.put('/api/v1/nfts', {
+            collectionName: nfts[0].metadata.collection.name,
+            nfts: mintedNFTs
+        }
+      ).then((res) => {
+            console.log(res)
+          if (res.data.status !== "success") {
+            throw new Error("Failed to update token IDs in the database");
+          } else {
+              setSuccess(`Successfully minted ${mintedNFTs.length} NFT(s)! Please check your wallet!`);
+          }
+      })
 
-      setSuccess(`Successfully minted ${mintedNFTs.length} NFTs!`);
     } catch (err: any) {
       setError(err.message || "Minting failed");
       console.error("Minting error:", err);
@@ -80,16 +77,18 @@ export default function MintBtn({ nfts }: MintBtnProps){
   };
 
   return (
-    <div className="flex flex-col items-center gap-2">
-      <button
-        onClick={handleMint}
-        disabled={isMinting || !wallet || !wallet.publicKey}
-        className={`px-4 py-2 rounded-lg font-semibold text-white bg-grayShade disabled:opacity-75 disabled:cursor-not-allowed`}
-      >
-        {isMinting ? "Minting..." : "Mint NFTs"}
-      </button>
-      {error && <p className="text-red-500">{error}</p>}
-      {success && <p className="text-green-500">{success}</p>}
+    <div className="w-[50%]">
+        {
+            success !== null ?
+                <p className="text-green-500 text-center font-semibold text-lg">{success}</p>
+            : error !== null ?
+                <p className="text-red-500 text-center font-semibold text-lg">{error}</p>
+            :
+             <button onClick={handleMint} disabled={isMinting || !wallet || !wallet.publicKey}
+                className={`px-4 py-2 rounded-lg w-full font-semibold text-white bg-grayShade disabled:opacity-75 disabled:cursor-not-allowed`}>
+                    {isMinting ? "Minting..." : "Mint NFTs"}
+            </button> 
+        }
     </div>
   );
 };

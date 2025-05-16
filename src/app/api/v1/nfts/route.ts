@@ -1,16 +1,16 @@
 import { NextRequest, NextResponse } from "next/server";
-import prisma from '../../../../db';
+import prisma from '@/db';
 
 export async function PUT(req: NextRequest) {
   try {
-    const { collectionId, nfts }: { collectionId: number; nfts: { name: string; tokenId: string; ownerWallet?: string }[] } = await req.json();
-
-    if (!collectionId || !nfts || !Array.isArray(nfts) || nfts.length === 0) {
+    const { collectionName, nfts }: { collectionName: string; nfts: { name: string; tokenId: string; ownerWallet?: string }[] } = await req.json();
+    console.log("collection name", collectionName)
+    if (!collectionName ) {
       return NextResponse.json({ status: "failure", error: "Missing or invalid collectionId or nfts array" });
     }
 
-    const nftCollection = await prisma.nftCollection.findUnique({
-      where: { id: collectionId },
+    const nftCollection = await prisma.nftCollection.findFirst({
+      where: { name: collectionName },
     });
 
     if (!nftCollection) {
@@ -21,7 +21,7 @@ export async function PUT(req: NextRequest) {
       nfts.map(async (nft) => {
         const updatedNft = await prisma.nft.update({
           where: {
-            collectionId: collectionId,
+            collectionId: nftCollection.id,
             tokenId: nft.name,
           },
           data: {
@@ -34,12 +34,12 @@ export async function PUT(req: NextRequest) {
       })
     );
 
-    const totalNfts = await prisma.nft.count({ where: { collectionId } });
-    const mintedNfts = await prisma.nft.count({ where: { collectionId, isMinted: true } });
+    const totalNfts = await prisma.nft.count({ where: { id: nftCollection.id } });
+    const mintedNfts = await prisma.nft.count({ where: { id: nftCollection.id, isMinted: true } });
 
     if (totalNfts === mintedNfts) {
       await prisma.nftCollection.update({
-        where: { id: collectionId },
+        where: { id: nftCollection.id },
         data: { isMinted: true },
       });
     }
@@ -47,7 +47,7 @@ export async function PUT(req: NextRequest) {
     return NextResponse.json({
       status: "success",
       data: {
-        collectionId,
+        collectionId: nftCollection.id,
         updatedNfts: updatedNfts.map(nft => ({
           id: nft.id,
           name: nft.name,
